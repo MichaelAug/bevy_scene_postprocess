@@ -28,7 +28,7 @@ fn get_scenes(app: &App) -> &Assets<Scene> {
   app.world().resource()
 }
 
-fn get_scenes_mut(app: &mut App) -> Mut<Assets<Scene>> {
+fn get_scenes_mut(app: &mut App) -> Mut<'_, Assets<Scene>> {
   app.world_mut().resource_mut()
 }
 

@@ -6,20 +6,13 @@ use std::{
 };
 
 use bevy::{
-  app::{Last, Plugin},
-  asset::{AssetEvent, AssetEvents, AssetId, Assets, Handle, StrongHandle},
-  ecs::system::SystemParam,
-  log::warn,
-  prelude::{
-    AppTypeRegistry, EventReader, IntoSystemConfigs, Res, ResMut, Resource,
+  app::{Last, Plugin}, asset::{AssetEvent, AssetEvents, AssetId, Assets, Handle, StrongHandle}, ecs::{schedule::IntoScheduleConfigs, system::SystemParam}, log::warn, platform::collections::{HashMap, HashSet}, prelude::{
+    AppTypeRegistry, EventReader, Res, ResMut, Resource,
     SystemSet, World,
-  },
-  scene::Scene,
-  tasks::{
+  }, scene::Scene, tasks::{
     block_on, futures_lite::future, tick_global_task_pools_on_main_thread,
     AsyncComputeTaskPool, Task,
-  },
-  utils::{HashMap, HashSet},
+  }
 };
 
 /// A plugin to enable post processing scenes. This requires the
