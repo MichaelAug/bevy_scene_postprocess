@@ -6,12 +6,11 @@ use std::{
 };
 
 use bevy::{
-  app::{Last, Plugin}, asset::{AssetEvent, AssetEvents, AssetId, Assets, Handle, StrongHandle}, ecs::{schedule::IntoScheduleConfigs, system::SystemParam}, log::warn, platform::collections::{HashMap, HashSet}, prelude::{
+  app::{Last, Plugin}, asset::{AssetEvent, AssetEvents, AssetId, Assets, Handle, StrongHandle}, ecs::{schedule::IntoScheduleConfigs, system::{Commands, SystemParam, SystemState}}, log::warn, platform::collections::{HashMap, HashSet}, prelude::{
     AppTypeRegistry, EventReader, Res, ResMut, Resource,
     SystemSet, World,
   }, scene::Scene, tasks::{
-    block_on, futures_lite::future, tick_global_task_pools_on_main_thread,
-    AsyncComputeTaskPool, Task,
+    AsyncComputeTaskPool, Task, block_on, futures_lite::future, tick_global_task_pools_on_main_thread
   }
 };
 
@@ -278,6 +277,9 @@ fn watch_for_changed_unprocessed(
         for action in async_actions {
           action(&mut processed_scene.world)?;
         }
+
+        processed_scene.world.flush();
+        
         Ok(processed_scene)
       });
       post_process_tasks
